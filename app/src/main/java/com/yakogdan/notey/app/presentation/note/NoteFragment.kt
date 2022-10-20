@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.yakogdan.notey.data.repository.NoteyRepositoryImpl
+import com.yakogdan.notey.data.repository.NotesRepositoryImpl
+import com.yakogdan.notey.data.storage.NotesStorage
+import com.yakogdan.notey.data.storage.SharedPrefNotesStorage
 import com.yakogdan.notey.databinding.FragmentNoteBinding
 import com.yakogdan.notey.domain.models.NoteDomain
 import com.yakogdan.notey.domain.usecase.GetDataUseCase
@@ -16,9 +18,16 @@ import com.yakogdan.notey.domain.usecase.SaveDataUseCase
 
 class NoteFragment : Fragment() {
 
-    private val noteyRepositoryImpl by lazy { NoteyRepositoryImpl(context = requireActivity().applicationContext) }
-    private val getDataUseCase by lazy { GetDataUseCase(noteyRepositoryImpl) }
-    private val saveDataUseCase by lazy { SaveDataUseCase(noteyRepositoryImpl) }
+    private val notesRepositoryImpl by lazy(LazyThreadSafetyMode.NONE) {
+        NotesRepositoryImpl(notesStorage = SharedPrefNotesStorage(context = requireActivity().applicationContext))
+    }
+
+    private val getDataUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        GetDataUseCase(notesRepositoryImpl)
+    }
+    private val saveDataUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        SaveDataUseCase(notesRepositoryImpl)
+    }
 
     private var _binding: FragmentNoteBinding? = null
     private val mBinding get() = _binding!!

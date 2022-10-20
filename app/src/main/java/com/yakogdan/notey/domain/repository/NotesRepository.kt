@@ -2,7 +2,7 @@ package com.yakogdan.notey.domain.repository
 
 import com.yakogdan.notey.domain.models.NoteDomain
 
-interface NoteyRepository {
+interface NotesRepository {
 
     fun saveData(noteDomain: NoteDomain): Boolean
 

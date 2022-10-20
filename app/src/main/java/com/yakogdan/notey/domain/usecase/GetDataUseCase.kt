@@ -1,9 +1,9 @@
 package com.yakogdan.notey.domain.usecase
 
 import com.yakogdan.notey.domain.models.NoteDomain
-import com.yakogdan.notey.domain.repository.NoteyRepository
+import com.yakogdan.notey.domain.repository.NotesRepository
 
-class GetDataUseCase(private val noteyRepository: NoteyRepository) {
+class GetDataUseCase(private val notesRepository: NotesRepository) {
 
-    fun execute(): NoteDomain = noteyRepository.getData()
+    fun execute(): NoteDomain = notesRepository.getData()
 }

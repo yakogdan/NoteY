@@ -1,24 +1,36 @@
 package com.yakogdan.notey.data.repository
 
-import android.content.Context
+import com.yakogdan.notey.data.storage.NotesStorage
+import com.yakogdan.notey.data.storage.models.NoteModelStorage
 import com.yakogdan.notey.domain.models.NoteDomain
-import com.yakogdan.notey.domain.repository.NoteyRepository
+import com.yakogdan.notey.domain.repository.NotesRepository
 
-private const val SHARED_PREFS_NAME = "shared_prefs_name"
-private const val KEY_NAME = "title"
-private const val DEFAULT_TITLE = "Default title"
 
-class NoteyRepositoryImpl(context: Context) : NoteyRepository {
-    private val sharedPreferences =
-        context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+class NotesRepositoryImpl(private val notesStorage: NotesStorage) : NotesRepository {
 
-    override fun saveData(noteDomain: NoteDomain): Boolean {
-        sharedPreferences.edit().putString(KEY_NAME, noteDomain.title).apply()
-        return true
+
+    override fun saveData(noteDomain: NoteDomain): Boolean =
+        notesStorage.saveData(mapToStorage(noteDomain))
+
+
+
+    override fun getData(): NoteDomain {
+        val note = notesStorage.getData()
+        return mapToDomain(note)
     }
 
-    override fun getData(): NoteDomain =
-        NoteDomain(title = sharedPreferences.getString(KEY_NAME, DEFAULT_TITLE).toString())
+    private fun mapToDomain(note: NoteModelStorage): NoteDomain =
+        NoteDomain(
+            title = note.title,
+            subtitle = note.subtitle
+        )
+
+    private fun mapToStorage(note: NoteDomain): NoteModelStorage =
+        NoteModelStorage(
+            title = note.title,
+            subtitle = note.subtitle
+        )
+
 //    {
 //        val title = sharedPreferences.getString(KEY_NAME, "")
 //        return NoteDomain(title = title.toString())
