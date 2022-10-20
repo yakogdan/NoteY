@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+//    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -15,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     buildTypes {
@@ -38,6 +44,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -46,13 +53,20 @@ dependencies {
     def lifecycleVersion = "2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 
     // Room
     def roomVersion = "2.4.3"
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Koin
+    def koinVersion= "3.2.2"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    // Testing
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
 
     // Navigation Components
     def navVersion = "2.5.1"
