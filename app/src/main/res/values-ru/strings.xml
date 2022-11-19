@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Note Y</string>
+    <string name="search">Поиск</string>
+    <string name="title">Заголовок</string>
+    <string name="subtitle">Подзаголовок</string>
+    <string name="date">10 Июня</string>
+    <string name="title_activity_main">Главный экран</string>
+    <string name="next">Вперёд</string>
+    <string name="back">Назад</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="save">Сохранить</string>
+    <string name="settings">Настройки</string>
+</resources>
